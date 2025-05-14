@@ -1,0 +1,138 @@
+﻿<Window
+    x:Class="UglyWPF.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:UglyWPF"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:UglyWPF.ViewModel"
+    Title="MainWindow"
+    MinWidth="800"
+    MinHeight="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <viewModels:MainWindowsViewModel x:Name="ViewModel" />
+    </Window.DataContext>
+
+    <Window.Resources>
+
+        <!--  Define a style for Image controls  -->
+        <Style x:Key="imageStyle" TargetType="Image">
+            <Setter Property="Width" Value="25" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Margin" Value="10,0,8,0" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        ShadowDepth="5"
+                        Color="Gray" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Margin" Value="10,0,8,10" />
+        </Style>
+        <Style TargetType="TreeViewItem">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Margin" Value="10,5,8,10" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="{StaticResource PrimaryBackground}">
+        <DockPanel>
+
+            <!--  Menu  -->
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="{DynamicResource MainWindow_file}" />
+                <MenuItem Header="{DynamicResource MainWindow_systemSetting}">
+                    <MenuItem Command="{Binding SwitchCNLanguageCommand}" Header="{DynamicResource MainWindow_chinese}" />
+                    <MenuItem Command="{Binding SwitchENLanguageCommand}" Header="{DynamicResource MainWindow_english}" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource MainWindow_edit}">
+                    <MenuItem Header="{DynamicResource MainWindow_report}" />
+                    <MenuItem Header="{DynamicResource MainWindow_tagComparisonTable}" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource MainWindow_view}">
+                    <MenuItem Header="{DynamicResource MainWindow_selfTest}" />
+                    <MenuItem Header="{DynamicResource MainWindow_interfaceTest}" />
+                    <MenuItem Header="{DynamicResource MainWindow_functionTest}" />
+                    <MenuItem Header="{DynamicResource MainWindow_autoTest}" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource MainWindow_help}">
+                    <MenuItem Header="{DynamicResource MainWindow_openHelp}" />
+                    <MenuItem Header="{DynamicResource MainWindow_log}" />
+                </MenuItem>
+            </Menu>
+
+            <!--  Status Bar  -->
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem
+                    x:Name="StatusBarInfo"
+                    HorizontalAlignment="Right"
+                    Content="{Binding Operation}" />
+            </StatusBar>
+
+            <!--  Main Content Area  -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--  左侧导航  -->
+                <Expander
+                    Grid.Column="0"
+                    Margin="5"
+                    Padding="5"
+                    Background="{StaticResource SecondaryBackground}"
+                    BorderBrush="{StaticResource AccentBrush}"
+                    BorderThickness="1"
+                    Header=""
+                    IsExpanded="True">
+                    <TreeView Background="Transparent" Foreground="{StaticResource TextBrush}">
+                        <TreeViewItem Header="{DynamicResource MainWindow_home}" IsSelected="True" />
+                        <TreeViewItem Header="{DynamicResource MainWindow_selfTest}">
+                            <TreeViewItem Header="{DynamicResource Tv_boardChannel}" />
+                        </TreeViewItem>
+                        <TreeViewItem Header="{DynamicResource MainWindow_interfaceTest}">
+                            <TreeViewItem Header="{DynamicResource Tv_typelist}" />
+                        </TreeViewItem>
+                        <TreeViewItem Header="{DynamicResource MainWindow_functionTest}">
+                            <TreeViewItem Header="{DynamicResource Tv_function1}" />
+                            <TreeViewItem Header="{DynamicResource Tv_function2}" />
+                        </TreeViewItem>
+                        <TreeViewItem Header="{DynamicResource MainWindow_autoTest}">
+                            <TreeViewItem Header="{DynamicResource Tv_autotest1}" />
+                            <TreeViewItem Header="{DynamicResource Tv_autotest2}" />
+                        </TreeViewItem>
+                    </TreeView>
+                </Expander>
+
+                <!--  右侧主区域  -->
+                <Border
+                    Grid.Column="1"
+                    Margin="5"
+                    Background="{StaticResource SecondaryBackground}"
+                    BorderBrush="{StaticResource AccentBrush}"
+                    BorderThickness="1"
+                    CornerRadius="10">
+                    <DockPanel>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="{StaticResource TextBrush}"
+                            Text="{DynamicResource hello}" />
+                    </DockPanel>
+                </Border>
+
+            </Grid>
+        </DockPanel>
+    </Grid>
+
+
+</Window>
